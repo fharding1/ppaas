@@ -1,4 +1,4 @@
-![parrot.gif](https://github.com/fharding1/ppaas/blob/master/parrot.gif?raw=true)
+![Party Parrot](https://github.com/fharding1/ppaas/blob/master/parrot.gif?raw=true)![Smile Parrot](https://github.com/fharding1/ppaas/blob/master/smile_parrot.gif?raw=true)
 
 # Party Parrot as a Service (PPaaS)
 
