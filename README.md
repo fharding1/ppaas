@@ -4,6 +4,8 @@
 
 For all your serverless web scale party parrot needs.
 
+https://cultofthepartyparrot.com/
+
 ## Usage
 
     go run main.go
