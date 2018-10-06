@@ -32,15 +32,12 @@ func main() {
 
 func loadParrotFile() (*gif.GIF, error) {
 	parrotFile, err := os.Open("parrot.gif")
-	// Given that we may have an error, address a potential return here if err is not nil
 	if err != nil {
 		return nil, err
 	}
 	defer parrotFile.Close()
 
-	parrot, err := gif.DecodeAll(parrotFile)
-
-	return parrot, err
+	return gif.DecodeAll(parrotFile)
 }
 
 func makeParrotHandler(overlayWidth, xOffset, yOffset int, parrot *gif.GIF) http.Handler {
