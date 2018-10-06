@@ -26,7 +26,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	defer parrotFile.Close()
+	parrotFile.Close()
 
 	parrot, err := gif.DecodeAll(parrotFile)
 	if err != nil {
