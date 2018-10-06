@@ -22,6 +22,12 @@ func main() {
 
 	flag.Parse()
 
+	parrot := loadParrotFile()
+
+	http.ListenAndServe(*addr, makeParrotHandler(*overlayWidth, *xOffset, *yOffset, parrot))
+}
+
+func loadParrotFile() *gif.GIF {
 	parrotFile, err := os.Open("parrot.gif")
 	if err != nil {
 		panic(err)
@@ -33,7 +39,7 @@ func main() {
 		panic(err)
 	}
 
-	http.ListenAndServe(*addr, makeParrotHandler(*overlayWidth, *xOffset, *yOffset, parrot))
+	return parrot
 }
 
 func makeParrotHandler(overlayWidth, xOffset, yOffset int, parrot *gif.GIF) http.Handler {
