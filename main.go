@@ -19,10 +19,11 @@ func main() {
 	overlayWidth := flag.Int("overlayWidth", 80, "width of image overlay")
 	xOffset := flag.Int("xOffset", 16, "x offset of image overlay")
 	yOffset := flag.Int("yOffset", 20, "y offset of image overlay")
+	parrotPath := flag.String("parrotPath", "parrot.gif", "location of parrot file (.gif)")
 
 	flag.Parse()
 
-	parrot, err := loadParrotFile()
+	parrot, err := loadParrotFile(*parrotPath)
 	if err != nil {
 		panic(err)
 	}
@@ -30,8 +31,8 @@ func main() {
 	http.ListenAndServe(*addr, makeParrotHandler(*overlayWidth, *xOffset, *yOffset, parrot))
 }
 
-func loadParrotFile() (*gif.GIF, error) {
-	parrotFile, err := os.Open("parrot.gif")
+func loadParrotFile(path string) (*gif.GIF, error) {
+	parrotFile, err := os.Open(path)
 	if err != nil {
 		return nil, err
 	}
