@@ -28,7 +28,10 @@ func main() {
 		panic(err)
 	}
 
-	http.ListenAndServe(*addr, makeParrotHandler(*overlayWidth, *xOffset, *yOffset, parrot))
+	err := http.ListenAndServe(*addr, makeParrotHandler(*overlayWidth, *xOffset, *yOffset, parrot))
+	if err != nil {
+		panic(err)
+	}
 }
 
 func loadParrotFile(path string) (*gif.GIF, error) {
