@@ -7,9 +7,13 @@ import (
 	"image/gif"
 	"image/jpeg"
 	"image/png"
+	"log"
+	"net"
 	"net/http"
 	"os"
+	"os/signal"
 	"path/filepath"
+	"syscall"
 
 	"github.com/nfnt/resize"
 )
@@ -27,8 +31,24 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	errc := make(chan error)
+	listener, err := net.Listen("tcp", *addr)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	http.ListenAndServe(*addr, makeParrotHandler(*overlayWidth, *xOffset, *yOffset, parrot))
+	go func() {
+		errc <- http.Serve(listener, makeParrotHandler(*overlayWidth, *xOffset, *yOffset, parrot))
+	}()
+
+	sig := make(chan os.Signal)
+	signal.Notify(sig, syscall.SIGINT)
+	go func() {
+		log.Println(<-sig)
+		listener.Close()
+	}()
+
+	log.Fatal(<-errc)
 }
 
 func loadParrotFile(path string) (*gif.GIF, error) {
