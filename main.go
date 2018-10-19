@@ -28,7 +28,7 @@ func main() {
 		panic(err)
 	}
 
-	err := http.ListenAndServe(*addr, makeParrotHandler(*overlayWidth, *xOffset, *yOffset, parrot))
+	err = http.ListenAndServe(*addr, makeParrotHandler(*overlayWidth, *xOffset, *yOffset, parrot))
 	if err != nil {
 		panic(err)
 	}
